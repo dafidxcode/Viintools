@@ -41,15 +41,19 @@ export async function POST(req: Request) {
 
     const studioApiKey = process.env.PAXSENIX_API_KEY;
     const engineUrl = process.env.VEO3_API_URL;
-    const urlParams = new URLSearchParams();
-    urlParams.append('prompt', prompt || '');
-    urlParams.append('ratio', ratio || '9:16');
-    urlParams.append('model', model || 'veo-3.1-fast');
-    urlParams.append('type', type || 'text-to-video');
-    if (type === 'image-to-video' && imageUrls) urlParams.append('imageUrl', imageUrls);
+    const payload = {
+      prompt,
+      model: model || 'veo-3.1-fast',
+      aspect_ratio: ratio || '9:16', // Internal uses 'ratio', ext uses 'aspect_ratio'. Standardizing on aspect_ratio for engine.
+      image_url: type === 'image-to-video' ? imageUrls : undefined,
+      type: type || 'text-to-video'
+    };
 
-    const response = await axios.get(`${engineUrl}?${urlParams.toString()}`, {
-      headers: { 'Authorization': `Bearer ${studioApiKey}` },
+    const response = await axios.post(engineUrl, payload, {
+      headers: {
+        'Authorization': `Bearer ${studioApiKey}`,
+        'Content-Type': 'application/json'
+      },
       timeout: 60000
     });
 
