@@ -33,6 +33,7 @@ import MusicCover from './components/MusicCover';
 import MusicSplitter from './components/MusicSplitter';
 // Fix: Imported GlobalPlayer for global state management
 import GlobalPlayer from './components/GlobalPlayer';
+import AdminDashboard from './components/AdminDashboard';
 
 const App: React.FC = () => {
   // Fix: Added setLibrary and currentTrack from store
@@ -132,6 +133,7 @@ const App: React.FC = () => {
       case View.SUNO_MUSIC_V2: return <MusicGeneratorV2 />;
       case View.MUSIC_COVER: return <MusicCover />;
       case View.MUSIC_SPLIT: return <MusicSplitter />;
+      case View.ADMIN_DASHBOARD: return <AdminDashboard />;
       default: return <DashboardHome />;
     }
   };

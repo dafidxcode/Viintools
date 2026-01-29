@@ -112,3 +112,20 @@ export const incrementFreeUsage = async (userId: string) => {
     await updateDoc(userRef, { freeUsageCount: current + 1 });
   }
 };
+
+export const getAllUsers = async () => {
+  const usersRef = collection(db, "users");
+  const q = query(usersRef, orderBy("createdAt", "desc"));
+  const snapshot = await import("firebase/firestore").then(fs => fs.getDocs(q));
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+export const updateUserProfile = async (userId: string, data: any) => {
+  const userRef = doc(db, "users", userId);
+  await updateDoc(userRef, data);
+};
+
+export const deleteUserDocument = async (userId: string) => {
+  const userRef = doc(db, "users", userId);
+  await deleteDoc(userRef);
+};

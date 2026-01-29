@@ -17,6 +17,7 @@ export enum View {
   MUSIC_COVER = 'MUSIC_COVER',
   MUSIC_SPLIT = 'MUSIC_SPLIT',
   SUNO_MUSIC_V2 = 'SUNO_MUSIC_V2',
+  ADMIN_DASHBOARD = 'ADMIN_DASHBOARD',
 }
 
 export interface Track {

@@ -148,7 +148,7 @@ export const useAppStore = create<AppState>()(
   ));
 
 export const checkFreeLimit = (user: User | null) => {
-  if (!user) return false;
-  if (user.plan !== 'FREE') return true;
-  return (user.freeUsageCount || 0) < 1;
+  if (!user) return true; // Not logged in = Limited
+  if (user.plan !== 'FREE') return false; // PRO = Not Limited
+  return (user.freeUsageCount || 0) >= 1; // FREE Limit: Used >= 1 time
 };
