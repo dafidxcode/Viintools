@@ -10,6 +10,7 @@ import { useAppStore } from '../store';
 const DeepNude: React.FC = () => {
   const { user, setShowUpgradeModal } = useAppStore();
   const [image, setImage] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
@@ -106,9 +107,24 @@ const DeepNude: React.FC = () => {
             </div>
 
             <div className="relative p-12 border-2 border-dashed border-white/10 rounded-2xl text-center bg-[#3BF48F]/5 group hover:border-[#3BF48F]/30 transition-all">
-              <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => setImage(e.target.files?.[0] || null)} />
-              <Upload size={32} className="mx-auto text-[#3BF48F] mb-4 group-hover:scale-110 transition-transform" />
-              <p className="text-[10px] font-black text-slate-400 tracking-widest">{image ? image.name : 'UPLOAD CLOTHED PHOTO'}</p>
+              <input type="file" className="absolute inset-0 opacity-0 cursor-pointer z-10" onChange={e => {
+                const f = e.target.files?.[0];
+                if (f) { setImage(f); setPreviewUrl(URL.createObjectURL(f)); }
+              }} accept="image/*" />
+
+              {previewUrl ? (
+                <div className="relative w-full h-64 rounded-xl overflow-hidden">
+                  <img src={previewUrl} className="w-full h-full object-contain" alt="Preview" />
+                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity z-20">
+                    <p className="text-[10px] font-black text-white uppercase tracking-widest">Click to Change</p>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <Upload size={32} className="mx-auto text-[#3BF48F] mb-4 group-hover:scale-110 transition-transform" />
+                  <p className="text-[10px] font-black text-slate-400 tracking-widest">UPLOAD CLOTHED PHOTO</p>
+                </>
+              )}
             </div>
 
             <button
