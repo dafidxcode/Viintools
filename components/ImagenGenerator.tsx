@@ -105,9 +105,6 @@ const ImagenGenerator: React.FC = () => {
           // @ts-ignore
           internalTaskId: res.data.taskId
         });
-        // @ts-ignore
-        internalTaskId: res.data.taskId
-      });
       if (user.plan === 'FREE') {
         incrementFreeUsage(user.id);
         incrementUserUsage();
