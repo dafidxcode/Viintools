@@ -65,6 +65,7 @@ const App: React.FC = () => {
               email: data.email || firebaseUser.email || '',
               avatar: data.avatar || firebaseUser.photoURL || `https://api.dicebear.com/7.x/pixel-art/svg?seed=${firebaseUser.uid}`,
               plan: data.plan || 'FREE',
+              freeUsageCount: data.freeUsageCount || 0,
               imageTimestamps: data.imageTimestamps || [],
               tempMailTimestamps: data.tempMailTimestamps || [],
               // Fix: Added missing ttsTimestamps assignment
