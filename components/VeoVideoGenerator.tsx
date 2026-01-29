@@ -114,7 +114,10 @@ const VeoVideoGenerator: React.FC = () => {
                         const idToken = await auth.currentUser?.getIdToken();
                         const formData = new FormData();
                         formData.append('file', file);
-                        const res = await axios.post('/api/upload-stream', formData, {
+                        formData.append('uploadPath', `veo-init/${Date.now()}`);
+                        formData.append('fileName', file.name);
+
+                        const res = await axios.post('/api/upload-file', formData, {
                           headers: { Authorization: `Bearer ${idToken}`, 'Content-Type': 'multipart/form-data' }
                         });
                         const dUrl = res.data.data?.downloadUrl || res.data.downloadUrl;
