@@ -103,3 +103,14 @@ export interface User {
   videoTimestamps?: number[];
   freeUsageCount?: number;
 }
+
+export interface ApiKey {
+  id: string; // Firestore ID
+  key: string; // The Actual Key (viin_live_...)
+  name: string; // "Android App"
+  ownerId: string; // Link to user
+  domain: string; // "myapp.com" or "*"
+  usageCount: number;
+  isActive: boolean;
+  createdAt: number;
+}
