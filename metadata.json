@@ -1,0 +1,7 @@
+{
+  "name": "Viintools",
+  "description": "A high-end AI musics, images, videos and other tools for content creator.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" fill="none">
+  <!-- Icon Part -->
+  <path d="M25 5L15 25H5L15 5H25Z" fill="#3BF48F"/>
+  <path d="M25 5L35 25H45L35 5H25Z" fill="#3BF48F" fill-opacity="0.5"/>
+  <path d="M15 25L25 35L35 25H15Z" fill="#2ED079"/>
+  
+  <!-- Text Part -->
+  <text x="50" y="28" font-family="Arial, sans-serif" font-weight="900" font-style="italic" font-size="24" fill="white" letter-spacing="-1">VIIN<tspan fill="#3BF48F">TOOLS</tspan></text>
+</svg>
