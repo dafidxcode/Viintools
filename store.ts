@@ -23,6 +23,7 @@ interface AppState {
 
   setView: (view: View, label?: string) => void;
   setUser: (user: User | null) => void;
+  incrementUserUsage: () => void;
   setAuthLoading: (loading: boolean) => void;
   setTheme: (isDark: boolean) => void;
   setSidebarOpen: (isSidebarOpen: boolean) => void;
@@ -86,6 +87,9 @@ export const useAppStore = create<AppState>()(
         currentTrack: user ? state.currentTrack : null,
         isPlaying: user ? state.isPlaying : false,
         tempMail: user ? state.tempMail : { email: null, expiresAt: null, messages: [] }
+      })),
+      incrementUserUsage: () => set((state) => ({
+        user: state.user ? { ...state.user, freeUsageCount: (state.user.freeUsageCount || 0) + 1 } : null
       })),
       setAuthLoading: (authLoading) => set({ authLoading }),
       setTheme: (isDark) => set({ isDark }),
