@@ -101,9 +101,7 @@ const ImageGenerator: React.FC = () => {
         // Update ke 'processing' HANYA setelah mendapatkan taskId dari server
         updateImageJob(storeJobId, {
           status: 'processing',
-          // @ts-ignore
-          internalTaskId: res.data.taskId
-        });
+          
         if (user.plan === 'FREE') {
           incrementFreeUsage(user.id);
           incrementUserUsage();
