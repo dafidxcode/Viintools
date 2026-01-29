@@ -115,8 +115,7 @@ export const incrementFreeUsage = async (userId: string) => {
 
 export const getAllUsers = async () => {
   const usersRef = collection(db, "users");
-  const q = query(usersRef, orderBy("createdAt", "desc"));
-  const snapshot = await import("firebase/firestore").then(fs => fs.getDocs(q));
+  const snapshot = await import("firebase/firestore").then(fs => fs.getDocs(usersRef));
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 
