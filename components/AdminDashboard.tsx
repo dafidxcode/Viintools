@@ -4,6 +4,7 @@ import { User, Check, X, Trash2, Edit2, Shield, Search, RefreshCw, Loader2, Crow
 import { toast } from 'sonner';
 import { getAllUsers, updateUserProfile, deleteUserDocument } from '../firebase';
 import { useAppStore } from '../store';
+import ApiKeyManager from './ApiKeyManager';
 
 const AdminDashboard: React.FC = () => {
     const { user } = useAppStore();
@@ -143,6 +144,11 @@ const AdminDashboard: React.FC = () => {
                         ))}
                     </div>
                 )}
+            </div>
+
+            {/* API Key Management Section */}
+            <div className="border-t border-white/10 pt-8">
+                <ApiKeyManager />
             </div>
 
             {/* Edit Modal */}
