@@ -8,7 +8,7 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ImageGenerator: React.FC = () => {
-  const { addImageJob, imageJobs, updateImageJob, removeImageJob, user, setShowUpgradeModal } = useAppStore();
+  const { addImageJob, imageJobs, updateImageJob, removeImageJob, user, setShowUpgradeModal, incrementUserUsage } = useAppStore();
   const [isGenerating, setIsGenerating] = useState(false);
   const [isRefining, setIsRefining] = useState(false);
   const [downloadingUrl, setDownloadingUrl] = useState<string | null>(null);
@@ -104,7 +104,10 @@ const ImageGenerator: React.FC = () => {
           // @ts-ignore
           internalTaskId: res.data.taskId
         });
-        if (user.plan === 'FREE') incrementFreeUsage(user.id);
+        if (user.plan === 'FREE') {
+          incrementFreeUsage(user.id);
+          incrementUserUsage();
+        }
         toast.info("Permintaan gambar sedang dikirim...");
       } else {
         throw res.data;

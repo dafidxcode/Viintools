@@ -11,7 +11,7 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const VeoVideoGenerator: React.FC = () => {
-  const { addVideoJob, videoJobs, updateVideoJob, removeVideoJob, user, setShowUpgradeModal } = useAppStore();
+  const { addVideoJob, videoJobs, updateVideoJob, removeVideoJob, user, setShowUpgradeModal, incrementUserUsage } = useAppStore();
   const [activeType, setActiveType] = useState<'text-to-video' | 'image-to-video'>('text-to-video');
   const [isGenerating, setIsGenerating] = useState(false);
   const [isRefining, setIsRefining] = useState(false);
@@ -54,7 +54,10 @@ const VeoVideoGenerator: React.FC = () => {
 
       if (res.data.ok) {
         // Increment usage if FREE
-        if (user.plan === 'FREE') incrementFreeUsage(user.id);
+        if (user.plan === 'FREE') {
+          incrementFreeUsage(user.id);
+          incrementUserUsage();
+        }
 
         // Simpan taskId internal untuk polling yang aman
         updateVideoJob(storeJobId, {

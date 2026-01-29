@@ -11,7 +11,7 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const GrokVideoGenerator: React.FC = () => {
-  const { addVideoJob, videoJobs, updateVideoJob, removeVideoJob, user, setShowUpgradeModal } = useAppStore();
+  const { addVideoJob, videoJobs, updateVideoJob, removeVideoJob, user, setShowUpgradeModal, incrementUserUsage } = useAppStore();
   const [activeType, setActiveType] = useState<'text-to-video' | 'image-to-video'>('text-to-video');
   const [isGenerating, setIsGenerating] = useState(false);
   const [isRefining, setIsRefining] = useState(false);
@@ -104,7 +104,10 @@ const GrokVideoGenerator: React.FC = () => {
           status: 'processing',
           internalTaskId: res.data.taskId
         });
-        if (user.plan === 'FREE') incrementFreeUsage(user.id);
+        if (user.plan === 'FREE') {
+          incrementFreeUsage(user.id);
+          incrementUserUsage();
+        }
         toast.info("Grok sedang memproses video...");
       } else { throw res.data; }
     } catch (e: any) {

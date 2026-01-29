@@ -10,7 +10,7 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const MusicGeneratorV2: React.FC = () => {
-    const { addJob, updateJob, removeJob, user, jobs, setCurrentTrack, setIsPlaying, currentTrack, isPlaying, setShowUpgradeModal } = useAppStore();
+    const { addJob, updateJob, removeJob, user, jobs, setCurrentTrack, setIsPlaying, currentTrack, isPlaying, setShowUpgradeModal, incrementUserUsage } = useAppStore();
     const [activeMode, setActiveMode] = useState<'simple' | 'custom' | 'json'>('simple');
     const [isRefining, setIsRefining] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
@@ -128,7 +128,10 @@ const MusicGeneratorV2: React.FC = () => {
                     // @ts-ignore
                     internalTaskId: response.data.taskId
                 });
-                if (user.plan === 'FREE') incrementFreeUsage(user.id);
+                if (user.plan === 'FREE') {
+                    incrementFreeUsage(user.id);
+                    incrementUserUsage();
+                }
                 toast.info("Musik V2 sedang dibuat...");
             } else {
                 throw response.data;
