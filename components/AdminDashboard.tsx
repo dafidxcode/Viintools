@@ -12,6 +12,7 @@ const AdminDashboard: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [editingUser, setEditingUser] = useState<any | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         fetchUsers();
@@ -22,7 +23,9 @@ const AdminDashboard: React.FC = () => {
         try {
             const data = await getAllUsers();
             setUsers(data);
-        } catch (e) {
+        } catch (e: any) {
+            console.error("Error fetching users:", e);
+            setError(e.message || "Gagal mengambil data user.");
             toast.error("Gagal mengambil data user.");
         } finally {
             setLoading(false);
@@ -43,6 +46,7 @@ const AdminDashboard: React.FC = () => {
             setEditingUser(null);
             fetchUsers();
         } catch (e) {
+            console.error("Error updating user:", e);
             toast.error("Update gagal.");
         }
     };
@@ -54,6 +58,7 @@ const AdminDashboard: React.FC = () => {
             toast.success("User dihapus.");
             fetchUsers();
         } catch (e) {
+            console.error("Error deleting user:", e);
             toast.error("Gagal menghapus user.");
         }
     };
@@ -75,6 +80,13 @@ const AdminDashboard: React.FC = () => {
 
     return (
         <div className="space-y-8 pb-20">
+            {error && (
+                <div className="bg-red-500/10 border border-red-500/50 p-4 rounded-xl text-red-500 flex items-center gap-2">
+                    <Shield size={20} />
+                    <p className="font-bold">{error}</p>
+                    <button onClick={() => setError(null)} className="ml-auto hover:text-white"><X size={16} /></button>
+                </div>
+            )}
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-black font-heading italic uppercase text-white leading-none">ADMIN <span className="text-[#3BF48F]">PANEL</span></h1>

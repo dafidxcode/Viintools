@@ -48,6 +48,7 @@ const ApiKeyManager: React.FC = () => {
             setNewName('');
             setShowAdd(false);
         } catch (error) {
+            console.error("Error creating API key:", error);
             toast.error("Gagal membuat kunci.");
         }
     };
@@ -58,6 +59,7 @@ const ApiKeyManager: React.FC = () => {
             await deleteDoc(doc(db, "api_keys", id));
             toast.success("Kunci dihapus.");
         } catch (error) {
+            console.error("Error deleting API key:", error);
             toast.error("Gagal menghapus.");
         }
     };
