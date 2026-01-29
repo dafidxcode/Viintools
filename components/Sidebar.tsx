@@ -67,6 +67,10 @@ const Sidebar: React.FC = () => {
     { id: View.TEMP_MAIL, label: 'Temp Mail', icon: MailIcon },
   ];
 
+  if (user?.email === 'kiyantodavin2@gmail.com') {
+    menu.push({ id: View.ADMIN_DASHBOARD, label: 'Admin Panel', icon: User });
+  }
+
   const handleNavClick = (item: NavItem) => {
     if (item.subItems) {
       toggleMenu(item.label);
