@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { validateApiKey } from '../../../../lib/auth-middleware';
+import { validateApiKey } from '@/lib/auth-middleware';
 import axios from 'axios';
 
 export async function POST(req: Request) {
